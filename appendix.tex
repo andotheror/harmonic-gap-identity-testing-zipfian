@@ -1,0 +1,434 @@
+\section{Zipf-envelope estimates}
+\label{app:harmonic}
+
+We collect the finite-sum estimates used in the proof. For integers
+$1\leq a<b$,
+\begin{align}
+ \log\frac{b+1}{a+1}
+ &\leq \sum_{i=a+1}^b\frac1i
+ \leq \log\frac ba,                                      \tag{24}\label{eq:hsum}\\
+ \frac{1}{b+1}
+ &\leq \sum_{i=b+1}^{\infty}\frac1{i^2}
+ \leq \frac1b.                                           \tag{25}\label{eq:squaresum}
+\end{align}
+More generally, for $\alpha>1$,
+\[
+ \sum_{i=a+1}^{\infty}i^{-\alpha}
+ \leq \int_a^\infty t^{-\alpha}\,dt
+ =\frac{a^{1-\alpha}}{\alpha-1}.                         \tag{26}\label{eq:pseries}
+\]
+The reverse bound with $a+1$ in place of $a$ follows by the same
+integral comparison.
+
+Let $q$ satisfy \eqref{eq:zipfenvelope}, put
+$m=m_q(\varepsilon)$, and let $r=\lfloor m/K_\kappa\rfloor$. Maximality
+of $m$ gives
+\[
+ \varepsilon\leq q(\{m+1,\ldots,k\})
+ <\varepsilon+\frac{\kappa}{L(m+1)}.
+\]
+Applying \eqref{eq:hsum} between $r$ and $m$, and choosing the fixed
+$K_\kappa$ sufficiently large, gives constants
+$0<b_\kappa<B_\kappa<\infty$ such that
+\[
+ \varepsilon+\frac{b_\kappa}{L}
+ \leq q(\{r+1,\ldots,k\})
+ \leq \varepsilon+\frac{B_\kappa}{L}.                  \tag{27}\label{eq:tailmassbounds}
+\]
+Also,
+\[
+ \frac{c_\kappa}{L^2r}
+ \leq\sum_{i=r+1}^kq_i^2
+ \leq\frac{C_\kappa}{L^2r},                             \tag{28}\label{eq:tailcollisionbounds}
+\]
+provided $k/r$ exceeds a $\kappa$-dependent constant. Finally,
+\begin{align}
+ \sum_{i=1}^r q_i^{2/3}
+ &=\Theta_\kappa(L^{-2/3}r^{1/3}),\nonumber\\
+ \|q_{[r]}\|_{2/3}
+ &=\left(\sum_{i=1}^r q_i^{2/3}\right)^{3/2}
+ =\Theta_\kappa(\sqrt r/L).                             \tag{29}\label{eq:headnorm}
+\end{align}
+Here and below $\|z\|_{2/3}=(\sum_i|z_i|^{2/3})^{3/2}$.
+
+For the exact harmonic law, \eqref{eq:hsum} and maximality of $m$ give
+\[
+ \log(k/m)=\varepsilon H_k+O(1),
+\]
+uniformly in the nondegenerate range. Hence
+$m=\Theta(k e^{-\varepsilon H_k})$, proving the tail-quantile assertion
+in Corollary~\ref{cor:fixed}.
+
+\section{The water-filling lemma}
+\label{app:waterfill}
+
+We prove Lemma~\ref{lem:waterfill} in a slightly more explicit form.
+
+\begin{lemma}[Capped quadratic minimization]
+\label{lem:capped}
+Let $u_1\geq u_2\geq\cdots\geq u_M>0$ and $0<a<\sum_i u_i$.
+The minimizer of
+\[
+ \min\left\{\sum_{i=1}^M d_i^2:
+ 0\leq d_i\leq u_i,\ \sum_i d_i\geq a\right\}
+\]
+has the form $d_i=\min\{u_i,\lambda\}$ for a unique $\lambda>0$.
+\end{lemma}
+
+\begin{proof}
+The inequality constraint is tight at a minimizer. Strict convexity gives
+uniqueness. The Karush--Kuhn--Tucker conditions state that every coordinate
+strictly below its cap has the same value $\lambda$, while a coordinate at
+its cap has $u_i\leq\lambda$. This is exactly the claimed form.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lem:waterfill}]
+It is enough to impose equality
+$\sum_{i\in S}d_i=q(S)-B/L$. Apply Lemma~\ref{lem:capped} with
+$u_i=q_i$. Let $t$ be the last index for which $q_t>\lambda$. Up to
+rounding, the minimizer is
+\[
+ d_i=\lambda\quad(r<i\leq t),
+ \qquad d_i=q_i\quad(i>t).                               \tag{30}\label{eq:waterform}
+\]
+The undeleted mass is at most $B/L$. If $t>r$, then the Zipf envelope and
+$\lambda<q_t\leq\kappa/(Lt)$ give
+\begin{align*}
+ \frac{B}{L}
+ &\geq\sum_{i=r+1}^{\lfloor t\rfloor}(q_i-\lambda)\\
+ &\geq\frac1{\kappa L}
+   \log\frac{\lfloor t\rfloor+1}{r+1}-\frac{\kappa}{L}.
+\end{align*}
+For $r$ above a $\kappa,B$-dependent constant this implies
+$t\leq A_{\kappa,B}'r$. If $t\leq r$, then $d_i=q_i$ throughout $S$,
+and \eqref{eq:tailcollisionbounds} gives the result directly. Otherwise,
+choose $A_{\kappa,B}\geq2A_{\kappa,B}'$. The assumption
+$k/r\geq A_{\kappa,B}$ ensures that $\{t+1,\ldots,2t\}$ is available.
+By \eqref{eq:waterform}, \eqref{eq:zipfenvelope}, and
+\eqref{eq:squaresum},
+\[
+ \sum_{i\in S}d_i^2
+ \geq\sum_{i>t}q_i^2
+ \geq\frac{c_\kappa}{L^2(t+1)}
+ \geq\frac{c_{\kappa,B}}{L^2r}.
+\]
+This proves the claim.
+\end{proof}
+
+\section{Details of the upper bound}
+\label{app:upper}
+
+We first record the statistic calculation.
+
+\begin{lemma}[Poisson collision moments]
+\label{lem:poissonmoments}
+Let $N_i\sim\Poi(np_i)$ independently, let $\Delta_i=p_i-q_i$, and let
+\[
+ Z_T=\sum_{i\in T}\big((N_i-nq_i)^2-N_i\big).
+\]
+Then
+\begin{align}
+ \E_pZ_T&=n^2\sum_{i\in T}\Delta_i^2,                    \tag{31}\label{eq:zmean}\\
+ \Var_pZ_T&=2n^2\sum_{i\in T}p_i^2
+ +4n^3\sum_{i\in T}p_i\Delta_i^2.                       \tag{32}\label{eq:zvar}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+For $N\sim\Poi(\lambda)$, the first four factorial moments give
+\[
+ \E[(N-a)^2-N]=(\lambda-a)^2
+\]
+and
+\[
+ \Var((N-a)^2-N)=2\lambda^2+4\lambda(\lambda-a)^2.
+\]
+Set $\lambda=np_i$ and $a=nq_i$, then sum independent coordinates.
+\end{proof}
+
+\begin{lemma}[Tail collision test]
+\label{lem:tailtest}
+Let $S=\{r+1,\ldots,k\}$ and suppose
+\[
+ \sum_{i\in S}q_i^2\leq\frac{C_0}{L^2r},\quad
+ q_{r+1}\leq\frac{C_0}{Lr}.
+\]
+There is a constant $C=C(C_0,c_0)$ such that, using a Poissonized sample with
+$n=CL\sqrt r$, one can distinguish $p=q$ from
+\[
+ \sum_{i\in S}(p_i-q_i)^2\geq\frac{c_0}{L^2r}
+\]
+with both errors at most $1/12$.
+\end{lemma}
+
+\begin{proof}
+Put $A=\sum_{i\in S}\Delta_i^2$ and
+$Q_2=\sum_{i\in S}q_i^2$. Besides
+$\sum p_i^2\leq2Q_2+2A$, we have
+\begin{align*}
+ \sum_{i\in S}p_i\Delta_i^2
+ &\leq\sum_{i\in S}(q_i+|\Delta_i|)\Delta_i^2\\
+ &\leq q_{r+1}A+\sum_{i\in S}|\Delta_i|^3\\
+ &\leq q_{r+1}A+A^{3/2}.
+\end{align*}
+The last step is monotonicity of finite-dimensional norms.
+
+Let $A_0=c_0/(L^2r)$ and reject when
+$Z_S>n^2A_0/2$. Under the null, Lemma~\ref{lem:poissonmoments} and
+$Q_2=O(A_0)$ show that the rejection probability is $O(C^{-2})$.
+Under an alternative with $A\geq A_0$, the squared ratio of the standard
+deviation to the mean is at most
+\[
+ O\left(
+ \frac{Q_2+A}{n^2A^2}
+ +\frac{q_{r+1}}{nA}
+ +\frac1{n\sqrt A}
+ \right)=O(C^{-1}).                                      \tag{33}\label{eq:snrbound}
+\]
+Choosing $C$ sufficiently large and applying Chebyshev's inequality proves
+the lemma.
+\end{proof}
+
+We now assemble the new-regime algorithm. Coarsen $q$ by preserving
+$1,\ldots,r$ and replacing $S$ by a single cell. Call the coarsened null
+$\bar q$. By \eqref{eq:tailmassbounds}, the tail cell is the largest cell.
+The general upper bound of \citet[Theorem 2]{valiant2017automatic}, applied
+at radius $\delta=c_\kappa/L$ for a sufficiently small fixed
+$c_\kappa$, is at most
+\[
+ C_\kappa\max\left\{\delta^{-1},
+ \frac{\|\bar q_{-\max}\|_{2/3}}{\delta^2}\right\}
+ \leq C_\kappa'L\sqrt r,                                \tag{34}\label{eq:coarsebound}
+\]
+where using the untruncated quasi-norm only enlarges the published upper
+bound. Equation \eqref{eq:headnorm} gives the last inequality.
+
+Suppose $\TV(p,q)>\varepsilon$ and
+$\TV(\bar p,\bar q)<\delta$. Since
+\[
+ 2\TV(\bar p,\bar q)
+ =\sum_{i\leq r}|p_i-q_i|+|p(S)-q(S)|,
+\]
+the total negative discrepancy outside $S$ is below $2\delta$. Therefore
+\[
+ \sum_{i\in S}(q_i-p_i)_+
+ \geq\varepsilon-2\delta.                               \tag{35}\label{eq:tailnegative}
+\]
+By \eqref{eq:tailmassbounds}, the right side of
+\eqref{eq:tailnegative} is at least $q(S)-B_\kappa'/L$. Moreover,
+$q(\{m+1,\ldots,k\})\leq(\kappa/L)\log(k/m)$, so
+$k/r\geq K_\kappa e^{x/\kappa}$. For $x$ above a
+$\kappa$-dependent constant, Lemma~\ref{lem:waterfill} with
+$B=B_\kappa'$ gives
+\[
+ \sum_{i\in S}(p_i-q_i)^2
+ \geq\sum_{i\in S}(q_i-p_i)_+^2
+ \geq\frac{c_\kappa}{L^2r}.                             \tag{36}\label{eq:tailsignalappendix}
+\]
+Lemma~\ref{lem:tailtest} detects this alternative. Splitting samples and
+amplifying each component test to error $1/12$ gives total error below
+$1/3$.
+
+For $x$ below that fixed $\kappa$-dependent constant, the untruncated
+version of the same Valiant--Valiant upper bound
+uses
+\[
+ O_\kappa\left(\frac{\|q\|_{2/3}}{\varepsilon^2}\right)
+ =O_\kappa\left(\frac{\sqrt k}{L\varepsilon^2}\right)
+ =O_\kappa\left(L\sqrt{m_q(\varepsilon)}
+     \max\{1,x^{-2}\}\right),                         \tag{37}\label{eq:smallupperappendix}
+\]
+because \eqref{eq:zipfenvelope} gives
+$m_q(\varepsilon)=\Theta_\kappa(k)$ whenever $x$ stays bounded.
+
+The argument above uses Poissonized samples only for the collision statistic.
+The standard comparison between multinomial and Poisson experiments gives a
+fixed-sample tester at constant overhead. Concretely, given $2n$ observations,
+draw $M\sim\Poi(n)$ independently. If $M\leq2n$, use the first $M$
+observations. Without the truncation, their cell counts are independent
+$\Poi(np_i)$ variables. The event $M>2n$ is exponentially unlikely, so adding
+it to the error budget changes only the universal constant.
+
+\section{Details of the thinning lower bound}
+\label{app:lower}
+
+We prove the concentration and second-moment statements from
+Section~\ref{sec:lower}. Recall that $S=\{r+1,\ldots,k\}$,
+$\pi_i=(r/i)^{1/3}$, $Y_i\sim\operatorname{Bernoulli}(\pi_i)$, and
+$A_i=Y_i/\pi_i-1$.
+
+\subsection{The alternatives are valid and far}
+
+Integral comparison gives
+\begin{align}
+ \sum_{i\in S}q_i\pi_i
+ &\leq\frac{\kappa r^{1/3}}{L}\sum_{i>r}i^{-4/3}
+ \leq\frac{3\kappa}{L},                                  \tag{38}\label{eq:retainedmass}\\
+ \Var(D)
+ &\leq\sum_{i\in S}q_i^2\pi_i
+ \leq\frac{C_\kappa}{L^2r},                             \tag{39}\label{eq:dvar}\\
+ \Var(R)
+ &=\sum_{i\in S}q_i^2\frac{1-\pi_i}{\pi_i}
+ \leq\sum_{i\in S}\frac{q_i^2}{\pi_i}
+ \leq\frac{C_\kappa}{L^2r}.                             \tag{40}\label{eq:rvar}
+\end{align}
+The exponents in the last two sums are $7/3$ and $5/3$, respectively.
+By \eqref{eq:tailmassbounds} and \eqref{eq:retainedmass},
+\[
+ \E D=q(S)-\sum_{i\in S}q_i\pi_i
+ \geq\varepsilon+c_\kappa/L.                            \tag{41}\label{eq:dmargin}
+\]
+
+Fix $B_\kappa$ so that $C_\kappa/B_\kappa^2\leq1/400$.
+Chebyshev's inequality yields
+\begin{align*}
+ \Pp(D\leq\varepsilon)&\leq C_\kappa/r,\\
+ \Pp\left(|R|>B_\kappa/(L\sqrt r)\right)&\leq1/400.
+\end{align*}
+For a $\kappa$-dependent $r_\kappa$, the event $\mathcal E$ in
+\eqref{eq:event} has probability $\alpha\geq0.99$. Increasing
+$r_\kappa$ ensures $B_\kappa/\sqrt r<1/\kappa$, hence
+$p_1=q_1-R>0$ on $\mathcal E$.
+
+For completeness, let $U$ be the positive tail discrepancy. Since
+$R=U-D$, if $R<0$ then the total negative discrepancy is $D$. If
+$R\geq0$, the reservoir contributes negative discrepancy $R$ and the
+total negative discrepancy is $D+R=U$. Thus $\TV(p,q)\geq D$ in both
+cases. Every conditioned alternative is valid and more than
+$\varepsilon$ away from $q$.
+
+\subsection{A scalar cross-moment bound}
+
+\begin{lemma}[Centered Bernoulli multiplier]
+\label{lem:scalar}
+Let $Y,Y'$ be independent $\operatorname{Bernoulli}(\pi)$ variables,
+let $A=Y/\pi-1$, and let $A'$ be its independent copy. Put
+$v=(1-\pi)/\pi$. If
+\[
+ |t|\max\{1,v^2\}\leq\frac12,
+\]
+then
+\[
+ \E e^{tAA'}\leq\exp(Ct^2v^2)                           \tag{42}\label{eq:scalarbound}
+\]
+for a universal constant $C$.
+\end{lemma}
+
+\begin{proof}
+The variable $A$ takes values $-1$ and $v$, has mean zero, and satisfies
+$\E A^2=v$. Consequently, $X=AA'$ has mean zero,
+$\E X^2=v^2$, and $|X|\leq\max\{1,v^2\}$. Taylor's theorem and the
+assumption give
+\[
+ e^{tX}\leq1+tX+C t^2X^2.
+\]
+Taking expectations and using $1+z\leq e^z$ proves the result.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lem:thinning}]
+Let $t_i=nq_i$ and $v_i=(1-\pi_i)/\pi_i$. If
+$n\leq c_\kappa L\sqrt r$, then for every $i>r$,
+\begin{align*}
+ t_i&\leq c_\kappa\kappa\sqrt r/i
+       \leq c_\kappa\kappa/\sqrt r,\\
+ t_iv_i^2&\leq t_i/\pi_i^2
+ \leq c_\kappa\kappa r^{-1/6}i^{-1/3}
+       \leq c_\kappa\kappa/\sqrt r.
+\end{align*}
+Thus Lemma~\ref{lem:scalar} applies for a sufficiently small
+$c_\kappa$ and large $r$. Independence across coordinates gives
+\begin{align*}
+ \log\E\exp\left(n\sum_{i\in S}q_iA_iA_i'\right)
+ &\leq Cn^2\sum_{i\in S}q_i^2v_i^2\\
+ &\leq\frac{C_\kappa n^2}{L^2r^{2/3}}
+       \sum_{i>r}i^{-4/3}\\
+ &\leq\frac{C_\kappa'n^2}{L^2r}
+ \leq C_\kappa'c_\kappa^2.
+\end{align*}
+This proves \eqref{eq:thinningmoment}.
+\end{proof}
+
+\subsection{Conditioning and the fixed-sample experiment}
+
+Let $\mu$ be the prior conditioned on $\mathcal E$ and let $M_n$ be the
+resulting mixture law of $n$ independent observations. For two valid
+alternatives $p,p'$ drawn from $\mu$, the multinomial likelihood-ratio
+identity is
+\[
+ \E_{q^{\otimes n}}L_pL_{p'}
+ =\left(\sum_{i=1}^k\frac{p_ip_i'}{q_i}\right)^n
+ =\left(1+\sum_{i=1}^k\frac{\Delta_i\Delta_i'}{q_i}\right)^n.
+ \tag{43}\label{eq:multicross}
+\]
+The base in \eqref{eq:multicross} is nonnegative. Using
+$1+z\leq e^z$, equations \eqref{eq:reservoir} and
+\eqref{eq:event} give
+\begin{align}
+ 1+\chi^2(M_n,q^{\otimes n})
+ &\leq\E_{p,p'\sim\mu}
+ \exp\left(n\sum_{i\in S}q_iA_iA_i'+n\frac{RR'}{q_1}\right)\nonumber\\
+ &\leq \exp\left(\frac{\kappa nB_\kappa^2}{Lr}\right)
+ \alpha^{-2}
+ \E\exp\left(n\sum_{i\in S}q_iA_iA_i'\right).           \tag{44}\label{eq:conditionedmoment}
+\end{align}
+The last expectation is under the unconditioned product prior. The factor
+$\alpha^{-2}$ follows by dropping two indicators from a nonnegative
+integrand.
+
+Set $n=c_\kappa L\sqrt r$. Lemma~\ref{lem:thinning} and
+\eqref{eq:conditionedmoment} imply
+\[
+ 1+\chi^2(M_n,q^{\otimes n})
+ \leq \exp(c_\kappa\kappa B_\kappa^2/\sqrt r)
+       \alpha^{-2}\exp(C_\kappa c_\kappa^2).
+ \tag{45}\label{eq:finalchi}
+\]
+Choose $r_\kappa$ large and then $c_\kappa$ small. The right side can be made at most
+$1.05$. Hence
+\[
+ \TV(M_n,q^{\otimes n})
+ \leq\sqrt{\chi^2(M_n,q^{\otimes n})/2}<1/3.
+\]
+No test can then have both type-I error and mixture-averaged type-II error
+at most $1/3$. Since every member of the mixture is
+$\varepsilon$-far, this proves
+$\Nstar(q,\varepsilon)=\Omega_\kappa(L\sqrt r)$. Because
+$r=\Theta_\kappa(m_q(\varepsilon))$, this is
+$\Omega_\kappa(L\sqrt{m_q(\varepsilon)})$.
+
+\section{The fine-accuracy regime and completion of Theorem 1}
+\label{app:assembly}
+
+We spell out how the standard lower bound completes the phase diagram. The
+lower bound of \citet[Proposition 2]{valiant2017automatic}, in the notation
+of \citet{canonne2024open}, is
+\[
+ \Nstar(q,\varepsilon)
+ \geq c\max\left\{\varepsilon^{-1},
+ \frac{\Phi_{\mathrm{VV}}(q,c'\varepsilon)}{\varepsilon^2}
+ \right\},                                                \tag{46}\label{eq:vvbound}
+\]
+for universal constants $c,c'>0$. After enlarging $r_\kappa$, the
+corner-case qualification discussed by \citet{canonne2024open} does not
+arise in the fine regime because $\|q\|_\infty\leq\kappa/L$.
+
+There is a constant $x_\kappa>0$ such that removing
+$O(\varepsilon)$ tail mass when $x=\varepsilon L\leq x_\kappa$ retains
+$\Theta_\kappa(k)$ coordinates. The Zipf envelope therefore gives
+\[
+ \Phi_{\mathrm{VV}}(q,c'\varepsilon)
+ =\Theta_\kappa(\sqrt k/L),
+\]
+and \eqref{eq:vvbound} yields
+\[
+ \Nstar(q,\varepsilon)
+ =\Omega_\kappa\left(\frac{\sqrt k}{L\varepsilon^2}\right)
+ =\Omega_\kappa\left(L\sqrt{m_q(\varepsilon)}x^{-2}\right).    \tag{47}\label{eq:finelower}
+\]
+For $x\geq x_\kappa$, the factor $\max\{1,x^{-2}\}$ is bounded by a
+$\kappa$-dependent constant, and the graded-thinning lower bound
+$\Omega_\kappa(L\sqrt{m_q(\varepsilon)})$ matches it. These two bounds
+give the lower half of \eqref{eq:mainrate}. Equations
+\eqref{eq:tailsignalappendix} and \eqref{eq:smallupperappendix} give the
+matching upper half. Enlarging $r_\kappa$ absorbs rounding and all finitely
+many cases used in the proof.
